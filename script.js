@@ -19,10 +19,13 @@ function reload() {
 }
 
 async function fetchNews(query) {
-    const res = await fetch(`${url}${query}&apiKey=${API_KEY}`);
+    const apiUrl = `${url}${query}&apiKey=${f732c1af50b340b0bc6c0d7e87886322}`;
+    console.log(apiUrl); // Log the API request URL
+    const res = await fetch(apiUrl);
     const data = await res.json();
     bindData(data.articles);
 }
+
 
 function bindData(articles) {
     const cardsContainer = document.getElementById("cards-container");
