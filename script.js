@@ -1,31 +1,17 @@
-const API_KEY = "f732c1af50b340b0bc6c0d7e87886322";
+const API_KEY = "1d3a0eefa97b499d8fbc4ee93eeb40b7";
 const url = "https://newsapi.org/v2/everything?q=";
 
 window.addEventListener("load", () => fetchNews("India"));
-// Define custom categories and their associated queries
-const categories = {
-    ipl: "IPL",
-    finance: "Finance",
-    health: "Health",
-    movies: "Movies",
-    trending: "Trending",
-    politics: "Politics",
-};
-
-
 
 function reload() {
     window.location.reload();
 }
 
 async function fetchNews(query) {
-    const apiUrl = `${url}${query}&apiKey=${f732c1af50b340b0bc6c0d7e87886322}`;
-    console.log(apiUrl); // Log the API request URL
-    const res = await fetch(apiUrl);
+    const res = await fetch(`${url}${query}&apiKey=${API_KEY}`);
     const data = await res.json();
     bindData(data.articles);
 }
-
 
 function bindData(articles) {
     const cardsContainer = document.getElementById("cards-container");
@@ -64,12 +50,7 @@ function fillDataInCard(cardClone, article) {
 
 let curSelectedNav = null;
 function onNavItemClick(id) {
-    const query = categories[id]; // Use the custom category query
-    if (!query) return;
-
-    fetchNews(query);
-
-    // Handle active class for navigation items
+    fetchNews(id);
     const navItem = document.getElementById(id);
     curSelectedNav?.classList.remove("active");
     curSelectedNav = navItem;
