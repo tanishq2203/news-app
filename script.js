@@ -1,31 +1,68 @@
-const API_KEY = "1d3a0eefa97b499d8fbc4ee93eeb40b7";
+const API_KEY = "66e2278a2f72441e816648f8f672fc16";
 const url = "https://newsapi.org/v2/everything?q=";
 
-window.addEventListener("load", () => fetchNews("India"));
+// Define custom categories and their associated queries
+const categories = {
+    ipl: "IPL",
+    finance: "Finance",
+    health: "Health",
+    movies: "Movies",
+    trending: "Trending",
+    politics: "Politics",
+};
 
-function reload() {
-    window.location.reload();
+
+window.addEventListener("load", () => {
+    fetchNews(); // Fetch news on page load
+    setInterval(fetchNews, 60000); // Fetch news every minute (adjust the interval as needed)
+});
+
+async function fetchNews() {
+    try {
+        const response = await fetch(`${NEWS_API_URL}?country=us&apiKey=${API_KEY}`);
+        const data = await response.json();
+        displayNews(data.articles);
+    } catch (error) {
+        console.error("Error fetching news:", error);
+    }
 }
 
-async function fetchNews(query) {
-    const res = await fetch(`${url}${query}&apiKey=${1d3a0eefa97b499d8fbc4ee93eeb40b7}`);
-    const data = await res.json();
-    bindData(data.articles);
-}
-
-function bindData(articles) {
+function displayNews(articles) {
     const cardsContainer = document.getElementById("cards-container");
-    const newsCardTemplate = document.getElementById("template-news-card");
-
     cardsContainer.innerHTML = "";
 
     articles.forEach((article) => {
-        if (!article.urlToImage) return;
-        const cardClone = newsCardTemplate.content.cloneNode(true);
-        fillDataInCard(cardClone, article);
+        if (!article.urlToImage) return; // Skip articles without images
+        const cardClone = createNewsCard(article);
         cardsContainer.appendChild(cardClone);
     });
 }
+
+function createNewsCard(article) {
+    // Create a news card element here, similar to your template
+    // Example:
+    const card = document.createElement("div");
+    card.classList.add("card");
+
+    const cardHeader = document.createElement("div");
+    cardHeader.classList.add("card-header");
+
+    const newsImage = document.createElement("img");
+    newsImage.src = article.urlToImage;
+    // Add the image to the cardHeader or another appropriate element
+
+    const cardContent = document.createElement("div");
+    cardContent.classList.add("card-content");
+
+    // Create and append other elements like title, description, source, etc.
+
+    cardHeader.appendChild(newsImage);
+    card.appendChild(cardHeader);
+    card.appendChild(cardContent);
+
+    return card;
+}
+
 
 function fillDataInCard(cardClone, article) {
     const newsImg = cardClone.querySelector("#news-img");
@@ -50,7 +87,12 @@ function fillDataInCard(cardClone, article) {
 
 let curSelectedNav = null;
 function onNavItemClick(id) {
-    fetchNews(id);
+    const query = categories[id]; // Use the custom category query
+    if (!query) return;
+
+    fetchNews(query);
+
+    // Handle active class for navigation items
     const navItem = document.getElementById(id);
     curSelectedNav?.classList.remove("active");
     curSelectedNav = navItem;
