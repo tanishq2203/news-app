@@ -44,31 +44,56 @@ ul {
 }
 
 nav {
-    background-color: #004080; 
-    box-shadow: 0 0 4px #000;
-    position: sticky;
+    background-color: #2294ed; /* Change this to the desired shade of blue */
+    box-shadow: 0 0 4px #bbd0e2;
+    position: fixed;
     top: 0;
     z-index: 99;
     left: 0;
     right: 0;
-    padding:  4px 0; 
+    margin-bottom: 20px;
 }
 
 .main-nav {
     justify-content: space-between;
-    padding-block: 4px; 
+    padding-block: 8px;
 }
 
 .company-logo img {
-    width: 160px; 
+    width: 120px;
 }
 
 .nav-links ul {
     gap: 16px;
 }
-.nav-links li {
-    margin: 0 10px;
-    color: white; 
+
+.nav-item {
+    color: white; /* Change this to the desired color for main topics */
+}
+#ipl,
+#finance,
+#politics,
+#health,
+#international,
+#bollywood {
+    color: white; /* Change this to the desired color for subtopics */
+}
+
+/* ... (your existing styles) ... */
+
+.nav-item.active,
+#ipl.active,
+#finance.active,
+#politics.active,
+#health.active,
+#international.active,
+#bollywood.active {
+    color: black; /* Change this to the desired color for active subtopics */
+}
+
+.nav-item.active {
+    color: var(--accent-color);
+}
 
 .hover-link {
     cursor: pointer;
@@ -87,12 +112,8 @@ nav {
 }
 
 .search-bar {
-    height: 36px; 
+    height: 32px;
     gap: 8px;
-    border: 2px solid #ccc;
-    border-radius: 25px; 
-    padding: 8px;
-    background-color: #fff; 
 }
 
 .news-input {
@@ -103,35 +124,9 @@ nav {
     border: 2px solid #bbd0e2;
     font-family: "Roboto", sans-serif;
 }
-.top-news {
-    padding: 10px 0;
-}
-.top-news .card {
-    width: 300px; 
-    min-height: 320px; 
-    box-shadow: 0 0 4px #ccc;
-    border-radius: 8px;
-    cursor: pointer;
-    background-color: #fff;
-    margin: 0 20px; 
-}
-
-.top-news .card:hover {
-    box-shadow: 2px 2px 10px #ccc;
-    background-color: #f9f9f9; 
-}
-.read-more-button {
-    background-color: #004080; 
-    color: #fff;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-    margin-top: 10px;
 
 .search-button {
-    background-color: #000; 
+    background-color: var(--accent-color);
     color: white;
     padding: 8px 24px;
     border: none;
@@ -146,7 +141,7 @@ nav {
 
 main {
     padding-block: 20px;
-    margin-top: 40px;
+    margin-top: 160px;
 }
 
 .cards-container {
